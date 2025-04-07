@@ -1,0 +1,1 @@
+print("program to handle math and probability")
