@@ -7,6 +7,7 @@ So far the power system utilizes the following metrics
 - ppg (points per game)
 - injuries
 - starters / benched players
+- Status of the player 
 ### Future will include
 - Managers/trainers
 - Trades
