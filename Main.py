@@ -1,5 +1,8 @@
 #Main program to run simulations based ond 
-
+from teams.team import Team
+TL = Team(1)
+print(TL.players)
+ 
 
 
 
