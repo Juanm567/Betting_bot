@@ -1,20 +1,13 @@
 #Main program to run simulations based ond 
 from teams.team import Team
-TL = Team(1)
-print(TL.players)
+print("Commands:\n\n Player - \"player name\"\n Team - \"Team name\"\n Player-stats - \"Player name\"")
+team = input("Team 1:")
+team_2 = input("Team 2:")
+TL = Team(team)
+TL = Team(team_2)
+print("Starters for " + team, ":", TL.players,"\nBenched / off for " + team,":",TL.benchednoff, "\n")
+print("\n\nStarters for " + team_2, ":", TL.players,"\nBenched / off for " + team_2,":",TL.benchednoff, "\n")
  
-
-
-
-
-
-
-
-
-
-
-
-
 
 #player_list1_starters = [100, 100, 100,100,100]
 #player_list1_bench = [100,100,100,100,100]
