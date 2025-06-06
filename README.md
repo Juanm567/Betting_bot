@@ -18,6 +18,6 @@ So far the power system utilizes the following metrics
 **Project Start Date:** *5/7/25*  
 **Main Project:** Sports Betting Bot  
 **Current Date:** 
-2025-06-03 (Made some updates to the team class)
-2025-06-06 (Finished up the team calss to display teamates added more stuff to Main file and added a bench players list)
+- 2025-06-03 (Made some updates to the team class)
+- 2025-06-06 (Finished up the team class to display teamates, added more stuff to Main file and added a bench players list)
 
