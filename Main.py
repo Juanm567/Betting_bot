@@ -1,11 +1,12 @@
 #Main program to run simulations based ond 
 from teams.team import Team
+from teams.player import Player
 print("Commands:\n\n Player - \"player name\"\n Team - \"Team name\"\n Player-stats - \"Player name\"")
 team = input("Team 1:")
 team_2 = input("Team 2:")
 TL = Team(team)
 TL = Team(team_2)
-print("Starters for " + team, ":", TL.players,"\nBenched / off for " + team,":",TL.benchednoff, "\n")
+print("\nStarters for " + team, ":", TL.players,"\nBenched / off for " + team,":",TL.benchednoff, "\n")
 print("\n\nStarters for " + team_2, ":", TL.players,"\nBenched / off for " + team_2,":",TL.benchednoff, "\n")
  
 
@@ -34,6 +35,10 @@ print("\n\nStarters for " + team_2, ":", TL.players,"\nBenched / off for " + tea
 #else:
  #   print("Team 2 is favored to win.")
 
+# 6/8 : 
+# TODO: finish player class and finish up the player power difference and how it will interact witht the overall team power level
+# was thinking in making each player start from 20 points then lower the total score by each factor after add it to an aray of size 5 and store each of the players power levels 
+# then add together and compare for each team, finally work on importing the nba.api library
 
     
 
