@@ -1,46 +1,34 @@
 #Main program to run simulations based ond 
+import pandas as pd
 from teams.team import Team
 from teams.player import Player
-print("Commands:\n\n Player - \"player name\"\n Team - \"Team name\"\n Player-stats - \"Player name\"")
-team = input("Team 1:")
-team_2 = input("Team 2:")
-TL = Team(team)
-TL = Team(team_2)
-print("\nStarters for " + team, ":", TL.players,"\nBenched / off for " + team,":",TL.benchednoff, "\n")
-print("\n\nStarters for " + team_2, ":", TL.players,"\nBenched / off for " + team_2,":",TL.benchednoff, "\n")
- 
+nba_players = {}
+nba_players = players.get_players()
+print(nba_players)
+#How to get the player_id of a player in the api
+#lebron = [player for player in nba_players if player['full_name'] == 'LeBron James'][0]
+#print(f"LeBron James' player ID: {lebron['id']}")
+dic = {}
+for i in nba_players:
+  dic[i['first_name']] = i['id']
 
-#player_list1_starters = [100, 100, 100,100,100]
-#player_list1_bench = [100,100,100,100,100]
 
-#player_list2_starters = [100,100,100,100,100]
-#player_list2_bench = [100,100,100,100,100]
 
-# Total power (starters + bench)
-#team1_total = sum(player_list1_starters) + sum(player_list1_bench)
-#team2_total = sum(player_list2_starters) + sum(player_list2_bench)
+for i,n in dic.items():
+  print(f"{i}:{n}")
 
-# Difference in power
-#power_diff = abs(team1_total - team2_total)
 
-# Decision logic / will change
-#if power_diff <= 4:
-  #  print("Very close game. Displaying win chances:")
-  #  team1_win = team1_total / (team1_total + team2_total)
-  #  team2_win = team2_total / (team1_total + team2_total)
-  # print(f"Team 1 win chance: {team1_win * 100:.2f}%")
-  #  print(f"Team 2 win chance: {team2_win * 100:.2f}%")
-#elif team1_total > team2_total: 
- #print("Team 1 is favored to win.")
-#else:
- #   print("Team 2 is favored to win.")
 
-# 6/8 : 
-# TODO: finish player class and finish up the player power difference and how it will interact witht the overall team power level
-# was thinking in making each player start from 20 points then lower the total score by each factor after add it to an aray of size 5 and store each of the players power levels 
-# then add together and compare for each team, finally work on importing the nba.api library
 
+
+
+
+
+#player_names = []
+#id = []
+#for i in nba_players:
+   #df = pd.DataFrame({'Player-Name':[i['full_name']],
+                   #'Player_id': [i['id']]})
+#print(df)
     
-
-
 
