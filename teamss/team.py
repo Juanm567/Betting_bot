@@ -1,4 +1,4 @@
-from . import mock_data # dot operator goes up one level in the hierarchy and signals to python in the same package import yatayatayata can eityher do . one ..2 levels or ...3 levels
+# dot operator goes up one level in the hierarchy and signals to python in the same package import yatayatayata can eityher do . one ..2 levels or ...3 levels
 # work on prining the return dictionary as a whole
 class Team:
     def __init__(self, team_name):

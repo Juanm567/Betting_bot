@@ -1,34 +1,23 @@
-#Main program to run simulations based ond 
+import numpy as np
 import pandas as pd
-from teams.team import Team
-from teams.player import Player
-nba_players = {}
-nba_players = players.get_players()
-print(nba_players)
-#How to get the player_id of a player in the api
-#lebron = [player for player in nba_players if player['full_name'] == 'LeBron James'][0]
-#print(f"LeBron James' player ID: {lebron['id']}")
-dic = {}
-for i in nba_players:
-  dic[i['first_name']] = i['id']
+from nba_api.stats.static import players
+from nba_api.stats.endpoints import playercareerstats
 
 
-
-for i,n in dic.items():
-  print(f"{i}:{n}")
-
-
-
+nba_player = players.get_players()  #Get player id, player name, id, if they are playing
+user_value = input("Get info for the following player: ")
+for player in nba_player:
+  if(player['full_name'] == user_value and player['is_active'] == True):
+    print(f"Name: {player['full_name']}\nPlayer ID: {player['id']}\n\n")
+    player_id = player['id']
+    # Fetch career stats for a player by ID
+  career = playercareerstats.PlayerCareerStats(player_id)
+  career_data = career.get_data_frames()[0]
+    # Show the first few rows of the data
+  print(career_data)  
 
 
 
 
 
-#player_names = []
-#id = []
-#for i in nba_players:
-   #df = pd.DataFrame({'Player-Name':[i['full_name']],
-                   #'Player_id': [i['id']]})
-#print(df)
-    
 
