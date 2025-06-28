@@ -21,7 +21,7 @@ def get_current_season():
 
 #Get the team ID of both teams, players in the team, win / loss of the current league
 def teams_info():
-    nba_teams = teams.get_teams() #returns a list of dictionaries each beiong a team
+    nba_teams = teams.get_teams() #returns a list of dictionaries each being a team
 
     #team_name_id = {} #dictionary to hold key:full team name and value: team ID
     
@@ -34,6 +34,8 @@ def teams_info():
 
 def players_info():
     nba_players = players.get_players() #returns a list of dictionaries each being a player
+    active_players = [p for p in nba_players if p['is_active']]
+    return active_players
 
     #players_name_id = {} #dict to get key:name and value:ID for active players
 
@@ -48,32 +50,35 @@ def players_info():
             #players_off[i['full_name']] = i['id']
 
     #return players_name_id, players_off
-    return nba_players
 
 def game_logs():
-    id_list = [] #List to have player ids to use in game logs lookup
-    all_dfs = [] # store all the df of player game logs in a list
-    nba_players = players_info() #must call the players_info() method to get the raw player_data
+    all_dfs = []
+    nba_players = [p for p in players.get_players() if p["is_active"]]  # Only active players
     nba_season = get_current_season()
+    current_player = 1
+    for player in nba_players: #iterate through the list of active players
+        print(f"getting data for players: [{current_player}/{len(nba_players)}]",end = '\r',flush = True)#end = '\r' to overwrite the line allowing it to print on the same line not many
+        # flush = True to ensure it prints immediately
+        player_id = player['id']#finmd id of active player
+        player_name = player['full_name']#get its full name
+        l = len(nba_players)
+        try:
+            result = playergamelog.PlayerGameLog(player_id=player_id, season=nba_season)#query object for the game log -> info held internally,return list of dataframes
+            dfs = result.get_data_frames()[0]#access said dataframe since their is only one dataframe in the list
+            if not dfs.empty:#if the df has data
+                all_dfs.append(dfs)#add the df to the list of df's
+                #print(f"Fetched game log for {player_name} (ID: {player_id})")
+                #testes for errors by doing print(f"{dfs.head()}\n")
+        except Exception as e: #catch any exception that may occur during the query in a e variable
+            print(f"Error fetching game log for {player_name} (ID: {player_id}): {e}")
+        time.sleep(1) #sleep for 1 second to avoid hitting the API rate limit or you get some https error
+        current_player += 1
 
-    for i in nba_players:
+    complete_df = pd.concat(all_dfs,ignore_index=True) #concatenate all the dataframes into one big dataframe
+    print(complete_df) #print the first 5 rows of the dataframe to see if it worked
+game_logs()
 
-        id_list.append(i['id'])
 
-    for j in id_list:
-
-        try: #Handle issue if an error occurs when making the API call e.g (missing ID, wrong season format, etc)
-            df = playergamelog.playerGamelog(player_id = j, season = nba_season).get_data_frames()[0] #access player logs
-            #[0] referes to you getting the df in the list that is returned by .get_data_frames 
-            all_dfs.append(df)
-        except:
-            print(f"Error extracting data can not get data for player with ID {j}")
-
-        time.sleep(0.6)# deals with API rate limits
-
-    complete_df = pd.concat(all_dfs,ignore_index=True) #concatenate the df's in all_dfs into a single bigger dataframe with a new index ignoring those from og df
-
-    return complete_df
 
 
 
