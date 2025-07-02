@@ -51,32 +51,34 @@ def players_info():
 
     #return players_name_id, players_off
 
-def game_logs():
+def game_logs(whole_info):
     all_dfs = []
-    nba_players = [p for p in players.get_players() if p["is_active"]]  # Only active players
     nba_season = get_current_season()
-    current_player = 1
-    for player in nba_players: #iterate through the list of active players
-        print(f"getting data for players: [{current_player}/{len(nba_players)}]",end = '\r',flush = True)#end = '\r' to overwrite the line allowing it to print on the same line not many
+    players = players_info()
+    def whole_game_logs():
+        current_player = 1
+        for player in players : #iterate through the list of active players
+            print(f"getting data for players: [{current_player}/{len(players)}]",end = '\r',flush = True)#end = '\r' to overwrite the line allowing it to print on the same line not many
         # flush = True to ensure it prints immediately
-        player_id = player['id']#finmd id of active player
-        player_name = player['full_name']#get its full name
-        l = len(nba_players)
-        try:
-            result = playergamelog.PlayerGameLog(player_id=player_id, season=nba_season)#query object for the game log -> info held internally,return list of dataframes
-            dfs = result.get_data_frames()[0]#access said dataframe since their is only one dataframe in the list
-            if not dfs.empty:#if the df has data
-                all_dfs.append(dfs)#add the df to the list of df's
+            player_id = player['id']#find id of active player
+            player_name = player['full_name']#get its full name
+            try:
+                result = playergamelog.PlayerGameLog(player_id=player_id, season=nba_season)#query object for the game log -> info held internally,return list of dataframes
+                dfs = result.get_data_frames()[0]#access said dataframe since their is only one dataframe in the list
+                if not dfs.empty:#if the df has data
+                    all_dfs.append(dfs)#add the df to the list of df's
                 #print(f"Fetched game log for {player_name} (ID: {player_id})")
                 #testes for errors by doing print(f"{dfs.head()}\n")
-        except Exception as e: #catch any exception that may occur during the query in a e variable
-            print(f"Error fetching game log for {player_name} (ID: {player_id}): {e}")
-        time.sleep(1) #sleep for 1 second to avoid hitting the API rate limit or you get some https error
-        current_player += 1
+            except Exception as e: #catch any exception that may occur during the query in a e variable
+                print(f"Error fetching game log for {player_name} (ID: {player_id}): {e}")
+            time.sleep(1) #sleep for 1 second to avoid hitting the API rate limit or you get some https error
+            current_player += 1
 
-    complete_df = pd.concat(all_dfs,ignore_index=True) #concatenate all the dataframes into one big dataframe
-    print(complete_df) #print the first 5 rows of the dataframe to see if it worked
-game_logs()
+        complete_df = pd.concat(all_dfs,ignore_index=True) #concatenate all the dataframes into one big dataframe
+        print(complete_df) #print the first 5 rows of the dataframe to see if it worked
+    if whole_info == True:
+        whole_game_logs()
+game_logs(False)
 
 
 
