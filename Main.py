@@ -15,7 +15,8 @@ command_actions = {
    'team_games':features.team_games,
    'player_stats':features.player_stats,
    'team_vs_team':features.tvt,
-   'player_vs_player':features.pvp
+   'player_vs_player':features.pvp,
+   'get_all_players':features.p_all
 }
 print("\n\nWelcome to the easy NBA info lookup program so far we only support player and team data but machine learning predictions are in the works\n\n")
 
@@ -29,6 +30,9 @@ while(True):
  slicing = user_in.strip().split()
  command = slicing[0]
  args = slicing[1:]
+ print(args)
+ #might use tkinter to make a GUI for this later or something to make it easier to pass arguments to functions then handling data and we should be good for v1
+ 
 
 
 
