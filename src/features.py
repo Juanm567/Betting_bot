@@ -1,4 +1,4 @@
-import preprocess
+from src import preprocess
 def player_games():
     pass
 def team_games():
@@ -8,4 +8,6 @@ def player_stats():
 def tvt():
     pass
 def pvp():
+    pass
+def p_all():
     pass
