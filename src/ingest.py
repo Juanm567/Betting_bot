@@ -78,7 +78,6 @@ def game_logs(whole_info):
         print(complete_df) #print the first 5 rows of the dataframe to see if it worked
     if whole_info == True:
         whole_game_logs()
-game_logs(False)
 
 
 
